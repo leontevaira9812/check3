@@ -23,6 +23,15 @@ app
       });
     });
   })
+  .get("/makeimage", (r) => {
+   const width = parseInt(r.query.width);
+    const height = parseInt(r.query.height);
+    sharp("./img/ALX_ICON.png")
+      .resize(width, height)
+      .toFile("./img/output.png", (err, info) => {
+        r.res.download("./img/output.png");
+      });
+
 
   .all("/login", (r) => r.res.send("leontevaira98"))
   .listen(process.env.PORT || 3000, () => {
