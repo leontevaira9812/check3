@@ -14,7 +14,7 @@ app
   .set("view engine", "ejs")
   .set("views", "views")
   .get("/", (r) => r.res.render("./index"))
-  .post("/size2json", img.single("image"), async (r) => {
+  .post("/makeimage", img.single("image"), async (r) => {
     const tempPath = r.file.path;
     sizeOf(tempPath, function (err, dimensions) {
       r.res.send({
@@ -23,14 +23,7 @@ app
       });
     });
   })
-  .get("/makeimage?", (r) => {
-    const width = parseInt(r.query.width);
-    const height = parseInt(r.query.height);
-    sharp("./img/ALX_ICON.png")
-      .resize(width, height)
-      .toFile("./img/output.png", (err, info) => {
-        r.res.download("./img/output.png");
-      });
+
   })
   .all("/login", (r) => r.res.send("leontevaira98"))
   .listen(process.env.PORT || 3000, () => {
